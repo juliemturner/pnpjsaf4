@@ -14,10 +14,10 @@
   "dependencies": {
     "@azure/functions": "4.1.0",
     "@azure/identity": "3.3.0",
-    "@pnp/azidjsclient": "3.20.0",
-    "@pnp/graph": "3.20.0",
-    "@pnp/nodejs": "3.20.0",
-    "@pnp/sp": "3.20.0",
+    "@pnp/azidjsclient": "3.22.0",
+    "@pnp/graph": "3.22.0",
+    "@pnp/nodejs": "3.22.0",
+    "@pnp/sp": "3.22.0",
     "applicationinsights": "2.9.2"
   },
   "devDependencies": {

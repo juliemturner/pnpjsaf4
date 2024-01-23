@@ -7,7 +7,6 @@
     "sourceMap": true,
     "strict": false,
     "moduleResolution": "Node",
-    "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "typeRoots": [
       "./node_modules/@types"
