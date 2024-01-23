@@ -1,8 +1,13 @@
-// <reference path="../../node_modules/@pnp/sp/fi.d.ts" />
-
-import * as AppInsights from 'applicationinsights';
+import AppInsights from 'applicationinsights';
 import { DefaultAzureCredential } from "@azure/identity";
-import { MyItem } from './models';
+import { MyItem } from './models.mjs';
+
+import { spfi, SPFI } from "@pnp/sp";
+import { AzureIdentity } from "@pnp/azidjsclient";
+import { SPDefault } from "@pnp/nodejs";
+import "@pnp/sp/webs/index.js";
+import "@pnp/sp/lists/index.js";
+import "@pnp/sp/items/index.js";
 
 export interface IPnpjsService {
   Init: () => Promise<boolean>;
@@ -13,27 +18,29 @@ export class PnpjsService implements IPnpjsService {
   private LOG_SOURCE = "PnpjsService";
   private _ready: boolean = false;
 
-  private _sp = null;
+  private _sp: SPFI = null;
 
   public constructor() { }
 
   public async Init(): Promise<boolean> {
     let retVal = false;
     try {
-      const { spfi, SPFI } = await import("@pnp/sp");
-      const { AzureIdentity } = await import("@pnp/azidjsclient/index.js");
-      const { SPDefault } = await import("@pnp/nodejs/index.js");
-      await import("@pnp/sp/webs/index.js");
-      await import("@pnp/sp/lists/index.js");
-      await import("@pnp/sp/items/index.js");
 
       const credential = new DefaultAzureCredential();
-      
+
       this._sp = spfi(process.env.SiteUrl).using(SPDefault({}),
         AzureIdentity(credential, [`https://${process.env.Tenant}.sharepoint.com/.default`], null));
 
       this._ready = true;
       retVal = true;
+      AppInsights.defaultClient.trackTrace({
+        message: 'Init success',
+        properties: {
+          source: this.LOG_SOURCE,
+          method: "Init"
+        },
+        severity: AppInsights.Contracts.SeverityLevel.Verbose
+      });
     } catch (err) {
       AppInsights.defaultClient.trackException({
         exception: err,
@@ -51,7 +58,16 @@ export class PnpjsService implements IPnpjsService {
   public async GetListItem(id: string): Promise<MyItem> {
     let retVal: MyItem = null;
     try {
-
+      const item = await this._sp.web.lists.getById(process.env.ListGUID).items.getById(+id)();
+      retVal = { Id: item.Id, Title: item.Title, Description: item.Description };
+      AppInsights.defaultClient.trackTrace({
+        message: 'GetListItem success',
+        properties: {
+          source: this.LOG_SOURCE,
+          method: "GetListItem"
+        },
+        severity: AppInsights.Contracts.SeverityLevel.Verbose
+      });
     } catch (err) {
       AppInsights.defaultClient.trackException({
         exception: err,
