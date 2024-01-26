@@ -1,6 +1,6 @@
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 import AppInsights from 'applicationinsights';
-import { pnpjs } from "../common/pnpjsService.mjs";
+import { pnpjs } from "../common/pnpjsService.js";
 
 export async function httpTrigger(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
   const LOG_SOURCE = "httpTrigger";

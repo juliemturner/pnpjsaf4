@@ -1,6 +1,6 @@
 import AppInsights from 'applicationinsights';
 import { DefaultAzureCredential } from "@azure/identity";
-import { MyItem } from './models.mjs';
+import { MyItem } from './models.js';
 
 import { spfi, SPFI } from "@pnp/sp";
 import { AzureIdentity } from "@pnp/azidjsclient";

@@ -4,8 +4,6 @@ This sample project demonstrates how to use the PnPjs SDK inside of an Azure Fun
 
 By default Azure Functions are configured to use Node.js CommonJS modules. However, PnPjs only supports ESModules. This sample shows you how to reconfigure your solution so that you can use ESModules and import any other CommonJS  modules that you have as dependencies.
 
->The team would like to thank [Sebastian Rogers](https://sebastian-rogers.medium.com/) for his [blog post](https://sebastian-rogers.medium.com/calling-pnp-js-from-a-typescript-azure-function-or-a-tale-of-two-standards-847c821dfbbd) that helped us with the final hurtle of getting typings to work. The key was the ext for the ts files need to be [.mts](https://www.typescriptlang.org/docs/handbook/modules/reference.html#module-format-detection) which indicates to NodeJS that the files are ESModules. For whatever reason even though we have `"type": "module"` in `package.json` it wasn't resolving properly in Visual Studio Code.
-
 ## List of changes
 
 - tsconfig.json: [Intro to TSConfig Reference](https://www.typescriptlang.org/tsconfig)
