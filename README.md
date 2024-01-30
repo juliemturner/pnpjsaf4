@@ -11,6 +11,7 @@ By default Azure Functions are configured to use Node.js CommonJS modules. Howev
   - "target": "ESNext"
   - "moduleResolution": "Node"
   - "allowSyntheticDefaultImports": true
+  
 - package.json
   - "type": "module"
 
